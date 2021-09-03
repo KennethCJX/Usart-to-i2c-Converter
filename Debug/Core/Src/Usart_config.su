@@ -1,0 +1,5 @@
+Usart_config.c:11:6:usartconfigure	24	static
+Usart_config.c:17:10:getUsartFreq	16	static
+Usart_config.c:28:6:usartSetBaudRate	64	static
+Usart_config.c:37:6:Usart_Tx_character	16	static
+Usart_config.c:43:6:Usart_Tx_String	16	static

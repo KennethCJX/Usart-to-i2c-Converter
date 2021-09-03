@@ -1,0 +1,8 @@
+I2C.c:10:10:getI2CFreq	16	static
+I2C.c:14:6:I2C_configure	24	static
+I2C.c:21:6:I2C_SoftwareReset	16	static
+I2C.c:27:6:I2C_set_CCR_and_TRISE	56	static
+I2C.c:50:6:I2C_Start	16	static
+I2C.c:58:12:_I2C_Write	32	static
+I2C.c:90:12:I2C_Write	32	static
+I2C.c:95:12:I2C_Read	48	static

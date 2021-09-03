@@ -1,0 +1,134 @@
+/*
+ * I2C.h
+ *
+ *  Created on: Jul 30, 2021
+ *      Author: ken chow
+ */
+
+#ifndef INC_I2C_H_
+#define INC_I2C_H_
+
+#include <stdint.h>
+#include "IO.h"
+
+//I2C Base Address
+#define I2C1_BASE_ADDRESS		0x40005400
+#define I2C2_BASE_ADDRESS		0x40005800
+#define I2C3_BASE_ADDRESS		0x40005C00
+
+//All I2C handler
+#define I2C_1					((I2CReg*)I2C1_BASE_ADDRESS)
+#define I2C_2					((I2CReg*)I2C2_BASE_ADDRESS)
+#define I2C_3					((I2CReg*)I2C3_BASE_ADDRESS)
+
+//I2C Control Register Mask
+#define I2C_CR1_MASK			0xFFFF
+
+typedef struct I2CReg_t I2CReg;
+struct I2CReg_t{
+	_IO_ uint32_t CR1;
+	_IO_ uint32_t CR2;
+	_IO_ uint32_t OAR1;
+	_IO_ uint32_t OAR2;
+	_IO_ uint32_t DR;
+	_IO_ uint32_t SR1;
+	_IO_ uint32_t SR2;
+	_IO_ uint32_t CCR;
+	_IO_ uint32_t TRISE;
+	_IO_ uint32_t FLTR;
+};
+
+typedef enum{
+	//CR1(bits 0-15)
+	PERIPHERAL_DISABLE					= 0 << 0,
+	PERIPHERAL_EN						= 1 << 0,
+	I2C_MODE							= 0 << 1,
+	SMBUS_MODE							= 1 << 1,
+	SMB_TYPE_DEVICE						= 0 << 3,
+	SMB_TYPE_HOST						= 1 << 3,
+	ARP_DISABLE							= 0 << 4,
+	ARP_EN								= 1 << 4,
+	PEC_CAL_DISABLE						= 0 << 5,
+	PEC_CAL_EN							= 1 << 5,
+	GENERAL_CALL_DISABLE				= 1 << 6,
+	GENERAL_CALL_EN						= 1 << 6,
+	NO_STRETCH_DISABE					= 0 << 7,
+	NO_STRETCH_EN						= 1 << 7,
+	I2C_GENERATED_START					= 1 << 8,
+	I2C_GENERATED_STOP					= 1 << 9,
+	NO_ACKNOWLEDGE_RETURNED				= 0 << 10,		//Acknowledge enable
+	ACKNOWLEDGE_RETURNED				= 1 << 10,
+	POS_CUR_BYTE_RECEIVED_IN_SHIFT_REG	= 0 << 11,
+	POS_NEXT_BYTE_RECEIVED_IN_SHIFT_REG	= 1 << 11,
+	PEC_NO_TRANSFER						= 0 << 12,
+	PEC_TRANSFER						= 1 << 12,
+	SMBUS_ALERT_RELEASE_SMBA_PIN_HIGH   = 0 << 13,
+	SMBUS_ALERT_DRIVES_SMBA_PIN_LOW		= 1 << 13,
+	I2C_NOT_UNDER_RESET					= 0 << 15,
+	I2C_UNDER_RESET						= 1 << 15,
+
+	//CR2
+	ERROR_INTERRUPT_DISABLE				= 0 << (8+16),
+	ERROR_INTERRUPT_EN					= 1 << (8+16),
+	EVENT_INTERRUPT_DISABLE				= 0 << (9+16),
+	EVENT_INTERRUPT_EN					= 1 << (9+16),
+	BUFFER_INTERRUPT_DISABLE			= 0 << (10+16),
+	BUFFER_INTERRUPT_EN					= 1 << (10+16),
+	DMA_REQUEST_DISABLE					= 0 << (11+16),
+	DMA_REQUEST_EN						= 1 << (11+16),
+	DMA_NOT_LAST_TRANSFER				= 0 << (12+16),
+	DMA_LAST_TRANSFER					= 1 << (12+16),
+
+	//CCR
+	FAST_MODE_DUTY_CYCLE_TLOW_2			= 0LL << (14+32),
+	FAST_MODE_DUTY_CYCLE_TLOW16_THIGH9	= 1LL << (14+32),
+	I2C_STANDARD_MODE					= 0LL << (15+32),
+	I2C_FAST_MODE						= 1LL << (15+32),
+}I2C_Control_config;
+
+typedef enum{
+	I2C_SLAVE_MODE = 0,
+	I2C_MASTER_MODE, I2C_START_GENERATED = 1,
+	I2C_BUS_BUSY = 1 << 1, I2C_ADDRESS_SENT = 1 << 1, I2C_ADDRESS_MATCHED = 1 << 1,
+	I2C_DATA_TRANSFERRED = 1 << 2, I2C_DATA_TRANSMITTED = 1 << 2, I2C_DATA_RECEIVED = 0 << 2,
+	I2C_10BIT_HEADER_SENT = 1 << 3,
+	I2C_STOP_DETECTED = 1 << 4, I2C_GENCALL_RECEIVED = 1 << 4,
+	I2C_SMB_DEFAULT = 1 << 5,
+	I2C_SMB_HOST = 1 << 6, I2C_RXNE = 1 << 6,
+	I2C_ADDR_MATCHED_OAR1 = 0 << 7, I2C_ADDR_MATCHED_OAR2 = 1 << 7, I2C_TXE = 1 << 7,
+	I2C_START_STOP_MISPLACED = 1 << 8,
+	I2C_ARBITRATION_LOST = 1 << 9,
+	I2C_NO_ACK_FAIL = 0 << 10, I2C_ACK_FAIL = 1 << 10,
+	I2C_OVERRUN_UNDERRUN = 1 << 11,
+	I2C_PEC_ERR = 1 << 12,
+	I2C_TIMEOUT_ERR = 1 << 14,
+	I2C_SMB_ALERT_OCCURED = 1 << 15,
+}I2C_Status_Flag;
+
+typedef enum{
+	//Digital Noise Filter
+	DIGITAL_NOISE_FIL_OFF = 0 << 3, DIGITAL_NOISE_FIL_CAPABILITY_1_TIMES_TPCLK1 = 1 << 3, DIGITAL_NOISE_FIL_CAPABILITY_2_TIMES_TPCLK1 = 2 << 3,
+	DIGITAL_NOISE_FIL_CAPABILITY_3_TIMES_TPCLK1 = 3 << 3, DIGITAL_NOISE_FIL_CAPABILITY_4_TIMES_TPCLK1 = 4 << 3,
+	DIGITAL_NOISE_FIL_CAPABILITY_5_TIMES_TPCLK1 = 5 << 3, DIGITAL_NOISE_FIL_CAPABILITY_6_TIMES_TPCLK1 = 6 << 3,
+	DIGITAL_NOISE_FIL_CAPABILITY_7_TIMES_TPCLK1 = 7 << 3, DIGITAL_NOISE_FIL_CAPABILITY_8_TIMES_TPCLK1 = 8 << 3,
+	DIGITAL_NOISE_FIL_CAPABILITY_9_TIMES_TPCLK1 = 9 << 3, DIGITAL_NOISE_FIL_CAPABILITY_10_TIMES_TPCLK1 = 10 << 3,
+	DIGITAL_NOISE_FIL_CAPABILITY_11_TIMES_TPCLK1 = 11 << 3, DIGITAL_NOISE_FIL_CAPABILITY_12_TIMES_TPCLK1 = 12 << 3,
+	DIGITAL_NOISE_FIL_CAPABILITY_13_TIMES_TPCLK1 = 13 << 3, DIGITAL_NOISE_FIL_CAPABILITY_14_TIMES_TPCLK1 = 14 << 3,
+	DIGITAL_NOISE_FIL_CAPABILITY_15_TIMES_TPCLK1 = 15 << 3,
+	//Analog Noise Filter
+	ANALOG_NOISE_FILTER_ON				= 0 << 4,
+	ANALOG_NOISE_FILTER_OFF				= 1 << 4,
+}I2C_Filter_config;
+
+typedef enum{
+	I2C_ERROR   = 0,
+	I2C_SUCCESS = !I2C_ERROR,
+}I2C_Status;
+
+void I2C_SoftwareReset(I2CReg *i2c);
+void I2C_configure(I2CReg *i2c, I2C_Control_config configuration);
+void I2C_set_CCR_and_TRISE(I2CReg *i2c, uint32_t frequency);
+void I2C_Start(I2CReg *i2c);
+I2C_Status I2C_Write(I2CReg *i2c, int SlaveAddr, char *data, int length);
+I2C_Status I2C_Read(I2CReg *i2c, int SlaveAddr, char *dataToWrite, int Wrlength, char *rdData, int Rdlength);
+#endif /* INC_I2C_H_ */
