@@ -58,7 +58,7 @@ void I2C_Start(I2CReg *i2c){
 I2C_Status _I2C_Write(I2CReg *i2c, int SlaveAddr, char *data, int length, int stopBit){
 	uint32_t temp;
 
-	//Initiate state sequence
+	//Initiate start sequence
 	I2C_Start(i2c);
 
 	//send the slave address
@@ -72,7 +72,7 @@ I2C_Status _I2C_Write(I2CReg *i2c, int SlaveAddr, char *data, int length, int st
 	for(int i = 0; i < length; i++){
 		i2c->DR = (uint32_t)data[i];
 		while(!(i2c->SR1 & I2C_TXE));
-		while(!(i2c->SR1 & I2C_DATA_TRANSFERRED ));
+		while(!(i2c->SR1 & I2C_DATA_TRANSFERRED));
 		if(i2c->SR1 & I2C_ACK_FAIL)
 			return I2C_ERROR;
 		//temp = 0x0;
@@ -91,7 +91,6 @@ I2C_Status I2C_Write(I2CReg *i2c, int SlaveAddr, char *data, int length){
 	return _I2C_Write(i2c, SlaveAddr, data, length, 1);
 }
 
-
 I2C_Status I2C_Read(I2CReg *i2c, int SlaveAddr, char *dataToWrite, int Wrlength, char *rdData, int Rdlength){
 	uint32_t temp;
 
@@ -104,18 +103,20 @@ I2C_Status I2C_Read(I2CReg *i2c, int SlaveAddr, char *dataToWrite, int Wrlength,
 
 	i2c->DR = (uint32_t)(SlaveAddr << 1) + 1;
 	while(!(i2c->SR1 & I2C_ADDRESS_MATCHED));
-	temp = 0x0;
-	temp = i2c->SR1;
-	temp = i2c->SR2;
+	//temp = 0x0;
+	//temp = i2c->SR1;
+	//temp = i2c->SR2;
+	i2c->SR2 = i2c->SR2;
 	for(int i=0; i< (Rdlength - 1); i++){
 		while(!(i2c->SR1 & I2C_RXNE));
 		rdData[i] = i2c->DR;
 		i2c->CR1 |= ACKNOWLEDGE_RETURNED;
 	}
+	i2c->CR1 |= I2C_GENERATED_STOP;					//testing
 	while(!(i2c->SR1 & I2C_RXNE));
 	rdData[Rdlength - 1] = i2c->DR;
 	i2c->CR1 &= ~(ACKNOWLEDGE_RETURNED);
-	i2c->CR1 |= I2C_GENERATED_STOP;
+	//i2c->CR1 |= I2C_GENERATED_STOP;
 	return I2C_SUCCESS;
 }
 
