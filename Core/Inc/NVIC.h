@@ -13,7 +13,7 @@
 
 #define NVIC_BASE_ADDRESS		0xE000E100
 
-#define nvic					((NvicReg *)NVIC_BASE_ADDRESS)
+#define nvic			       ((NvicReg *)NVIC_BASE_ADDRESS)
 
 typedef struct NvicReg_t NvicReg;
 struct NvicReg_t{
