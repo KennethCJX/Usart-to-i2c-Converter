@@ -7,6 +7,7 @@
 C_SRCS += \
 ../Core/Src/GPIO.c \
 ../Core/Src/I2C.c \
+../Core/Src/NVIC.c \
 ../Core/Src/RCC.c \
 ../Core/Src/Usart_config.c \
 ../Core/Src/main.c \
@@ -19,6 +20,7 @@ C_SRCS += \
 OBJS += \
 ./Core/Src/GPIO.o \
 ./Core/Src/I2C.o \
+./Core/Src/NVIC.o \
 ./Core/Src/RCC.o \
 ./Core/Src/Usart_config.o \
 ./Core/Src/main.o \
@@ -31,6 +33,7 @@ OBJS += \
 C_DEPS += \
 ./Core/Src/GPIO.d \
 ./Core/Src/I2C.d \
+./Core/Src/NVIC.d \
 ./Core/Src/RCC.d \
 ./Core/Src/Usart_config.d \
 ./Core/Src/main.d \

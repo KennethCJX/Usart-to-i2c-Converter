@@ -27,6 +27,7 @@
 #include "RCC.h"
 #include "Usart_config.h"
 #include "I2C.h"
+#include "NVIC.h"
 #include "string.h"
 /* USER CODE END Includes */
 

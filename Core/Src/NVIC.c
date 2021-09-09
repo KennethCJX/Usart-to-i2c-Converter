@@ -14,7 +14,7 @@ void nvicEnableIrq(int IrqNum){
 	n= IrqNum/32;
 	bitPos = IrqNum%32;
 
-	nvic->ISER[n] = 1 << bitPos;
+	nvic->NVIC_ISER[n] = 1 << bitPos;
 }
 
 void nvicDisableIrq(int IrqNum){
@@ -23,7 +23,7 @@ void nvicDisableIrq(int IrqNum){
 	n= IrqNum/32;
 	bitPos = IrqNum%32;
 
-	nvic->ICER[n] = 1 << bitPos;
+	nvic->NVIC_ICER[n] = 1 << bitPos;
 }
 
 void nvicEnablePendingIrq(int IrqNum){
@@ -32,7 +32,7 @@ void nvicEnablePendingIrq(int IrqNum){
 	n= IrqNum/32;
 	bitPos = IrqNum%32;
 
-	nvic->ISPR[n] = 1 << bitPos;
+	nvic->NVIC_ISPR[n] = 1 << bitPos;
 }
 
 void nvicDisablePendingIrq(int IrqNum){
@@ -41,5 +41,5 @@ void nvicDisablePendingIrq(int IrqNum){
 	n= IrqNum/32;
 	bitPos = IrqNum%32;
 
-	nvic->ICPR[n] = 1 << bitPos;
+	nvic->NVIC_ICPR[n] = 1 << bitPos;
 }

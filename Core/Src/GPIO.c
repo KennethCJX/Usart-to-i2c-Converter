@@ -32,12 +32,13 @@ void gpioConfigurePin(Gpio *gpio, int pin, GpioConfig cfg)
 
 	//Configure GPIO Alternate Function
 	//if ALT functon is selected, then store into upper and lower AFR
-	if(pin <= 0x07){
-	gpio->AFR[0] &= GPIO_AFR_MASK(pin);
-	gpio->AFR[0] &= ((cfg & 0xF0000) >> 16) << (4 * pin);
-	}
-	else{
-	gpio->AFR[1] &= GPIO_AFR_MASK(pin);
-	gpio->AFR[1] |= ((cfg & 0xF0000) >> 20) << (4 * (pin - 8));
-	}
+	if((gpio->MODER & (0x3 << (2 * pin))) >> (2 * pin) == GPIO_ALT_FUNC)
+		if(pin <= 0x07){
+			gpio->AFR[0] &= GPIO_AFR_MASK(pin);
+			gpio->AFR[0] |= ((cfg & 0xF0000) >> 16) << (4 * pin);
+		}
+		else{
+			gpio->AFR[1] &= GPIO_AFR_MASK(pin);
+			gpio->AFR[1] |= ((cfg & 0xF0000) >> 16) << (4 * (pin - 8));
+		}
 }
