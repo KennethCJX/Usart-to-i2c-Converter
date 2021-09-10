@@ -98,7 +98,7 @@ void test_nvicDisableInterrupt_given_interruptNum_51_expect_ICER_register_1_bit_
 
  ((NvicReg *)getNvicBaseAddress())->NVIC_ICER[1] = 0;
 
- nvicEnableIrq(51);
+ nvicDisableIrq(51);
 
     UnityAssertEqualNumber((UNITY_INT)((1 << 19)), (UNITY_INT)((((NvicReg *)getNvicBaseAddress())->NVIC_ICER[1])), (
 
@@ -116,7 +116,7 @@ void test_nvicDisableInterrupt_given_interruptNum_75_expect_ICER_register_2_bit_
 
  ((NvicReg *)getNvicBaseAddress())->NVIC_ICER[2] = 0;
 
- nvicEnableIrq(75);
+ nvicDisableIrq(75);
 
     UnityAssertEqualNumber((UNITY_INT)((1 << 11)), (UNITY_INT)((((NvicReg *)getNvicBaseAddress())->NVIC_ICER[2])), (
 
@@ -134,7 +134,7 @@ void test_nvicEnablePendingIrq_given_interruptNum_50_expect_ISPR_register_1_bit_
 
  ((NvicReg *)getNvicBaseAddress())->NVIC_ISPR[1] = 0;
 
- nvicEnableIrq(50);
+ nvicEnablePendingIrq(50);
 
     UnityAssertEqualNumber((UNITY_INT)((1 << 18)), (UNITY_INT)((((NvicReg *)getNvicBaseAddress())->NVIC_ISPR[1])), (
 
@@ -152,7 +152,7 @@ void test_nvicEnablePendingIrq_given_interruptNum_84_expect_ISPR_register_2_bit_
 
  ((NvicReg *)getNvicBaseAddress())->NVIC_ISPR[2] = 0;
 
- nvicEnableIrq(84);
+ nvicEnablePendingIrq(84);
 
     UnityAssertEqualNumber((UNITY_INT)((1 << 20)), (UNITY_INT)((((NvicReg *)getNvicBaseAddress())->NVIC_ISPR[2])), (
 
@@ -170,7 +170,7 @@ void test_nvicDisablePendingIrq_given_interruptNum_75_expect_ISPR_register_2_bit
 
  ((NvicReg *)getNvicBaseAddress())->NVIC_ICPR[2] = 0;
 
- nvicEnableIrq(75);
+ nvicDisablePendingIrq(75);
 
     UnityAssertEqualNumber((UNITY_INT)((1 << 11)), (UNITY_INT)((((NvicReg *)getNvicBaseAddress())->NVIC_ICPR[2])), (
 
@@ -188,7 +188,7 @@ void test_nvicDisablePendingIrq_given_interruptNum_71_expect_ISPR_register_2_bit
 
  ((NvicReg *)getNvicBaseAddress())->NVIC_ICPR[2] = 0;
 
- nvicEnableIrq(71);
+ nvicDisablePendingIrq(71);
 
     UnityAssertEqualNumber((UNITY_INT)((1 << 7)), (UNITY_INT)((((NvicReg *)getNvicBaseAddress())->NVIC_ICPR[2])), (
 

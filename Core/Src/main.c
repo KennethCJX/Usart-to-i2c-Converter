@@ -123,7 +123,9 @@ int main(void)
   I2C_SoftwareReset(I2C_2);
   I2C_configure(I2C_2, PERIPHERAL_EN | I2C_MODE | SMB_TYPE_HOST);
   I2C_set_CCR_and_TRISE(I2C_2, 100000);
-  I2C_Read_And_Write();
+  //I2C_Read_And_Write();
+  nvicEnableIrq(75);
+  nvicDisableIrq(51);
   /* USER CODE END 2 */
 
   /* Infinite loop */

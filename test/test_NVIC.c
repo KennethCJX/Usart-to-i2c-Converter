@@ -44,41 +44,41 @@ void test_nvicEnableInterrupt_given_interruptNum_75_expect_ISER_register_2_bit_1
 void test_nvicDisableInterrupt_given_interruptNum_51_expect_ICER_register_1_bit_19_to_be_set(void)
 {
 	nvic->NVIC_ICER[1] = 0;
-	nvicEnableIrq(51);
+	nvicDisableIrq(51);
     TEST_ASSERT_EQUAL(1 << 19, nvic->NVIC_ICER[1]);
 }
 
 void test_nvicDisableInterrupt_given_interruptNum_75_expect_ICER_register_2_bit_11_to_be_set(void)
 {
 	nvic->NVIC_ICER[2] = 0;
-	nvicEnableIrq(75);
+	nvicDisableIrq(75);
     TEST_ASSERT_EQUAL(1 << 11, nvic->NVIC_ICER[2]);
 }
 
 void test_nvicEnablePendingIrq_given_interruptNum_50_expect_ISPR_register_1_bit_18_to_be_set(void)
 {
 	nvic->NVIC_ISPR[1] = 0;
-	nvicEnableIrq(50);
+	nvicEnablePendingIrq(50);
     TEST_ASSERT_EQUAL(1 << 18, nvic->NVIC_ISPR[1]);
 }
 
 void test_nvicEnablePendingIrq_given_interruptNum_84_expect_ISPR_register_2_bit_20_to_be_set(void)
 {
 	nvic->NVIC_ISPR[2] = 0;
-	nvicEnableIrq(84);
+	nvicEnablePendingIrq(84);
     TEST_ASSERT_EQUAL(1 << 20, nvic->NVIC_ISPR[2]);
 }
 
 void test_nvicDisablePendingIrq_given_interruptNum_75_expect_ISPR_register_2_bit_11_to_be_set(void)
 {
 	nvic->NVIC_ICPR[2] = 0;
-	nvicEnableIrq(75);
+	nvicDisablePendingIrq(75);
     TEST_ASSERT_EQUAL(1 << 11, nvic->NVIC_ICPR[2]);
 }
 
 void test_nvicDisablePendingIrq_given_interruptNum_71_expect_ISPR_register_2_bit_7_to_be_set(void)
 {
 	nvic->NVIC_ICPR[2] = 0;
-	nvicEnableIrq(71);
+	nvicDisablePendingIrq(71);
     TEST_ASSERT_EQUAL(1 << 7, nvic->NVIC_ICPR[2]);
 }
