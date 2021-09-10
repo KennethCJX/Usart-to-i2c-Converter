@@ -10,8 +10,8 @@
 
 #include <stdint.h>
 #include "IO.h"
-
-#define NVIC_BASE_ADDRESS		0xE000E100
+#include "BaseAddress.h"
+//#define NVIC_BASE_ADDRESS		0xE000E100
 
 #define nvic			       ((NvicReg *)NVIC_BASE_ADDRESS)
 
