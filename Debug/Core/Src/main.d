@@ -28,8 +28,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/GPIO.h ../Core/Inc/IO.h ../Core/Inc/RCC.h \
- ../Core/Inc/Usart_config.h ../Core/Inc/I2C.h ../Core/Inc/NVIC.h \
- ../Core/Inc/IO/BaseAddress.h
+ ../Core/Inc/Usart_config.h ../Core/Inc/IO/BaseAddress.h \
+ ../Core/Inc/I2C.h ../Core/Inc/NVIC.h
 
 ../Core/Inc/main.h:
 
@@ -97,8 +97,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Core/Inc/Usart_config.h:
 
+../Core/Inc/IO/BaseAddress.h:
+
 ../Core/Inc/I2C.h:
 
 ../Core/Inc/NVIC.h:
-
-../Core/Inc/IO/BaseAddress.h:

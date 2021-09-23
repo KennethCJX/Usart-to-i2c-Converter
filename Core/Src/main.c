@@ -111,21 +111,21 @@ int main(void)
   MX_I2C3_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  rccResetAndUnresetUsart(Rcc_USART2);
+  rccResetAndUnresetGpio(Rcc_GPIOB);
+  rccResetAndUnresetUsart(Rcc_USART1);
   rccResetAndUnresetI2C(Rcc_I2C_2);
-  //Usart_Gpio_Pin_Configure();
+  Usart_Gpio_Pin_Configure();
 
-  //usartconfigure(usart2, USART_TX_EN | USART_RX_EN | USART_OVER8 | USART_8_DATA_BIT | USART_EN);
-  //usartSetBaudRate(usart2, 9600);
-  //Usart_Transmit_Sentence(usart2);
+  usartconfigure(usart1, USART_TX_EN | USART_RX_EN | USART_OVER8 | USART_8_DATA_BIT | USART_EN);
+  usartSetBaudRate(usart1, 9600);
+  Usart_Transmit_Sentence(usart2);
   gpioConfigurePin(gpioB, 9, GPIO_ALT_FUNC | GPIO_OPEN_DRAIN | GPIO_HIGH_SPEED | AF_9 ); 	//I2C_SDA
   gpioConfigurePin(gpioB, 10, GPIO_ALT_FUNC| GPIO_OPEN_DRAIN | GPIO_HIGH_SPEED | AF_4 );	//I2C_SCL
   I2C_SoftwareReset(I2C_2);
   I2C_configure(I2C_2, PERIPHERAL_EN | I2C_MODE | SMB_TYPE_HOST);
   I2C_set_CCR_and_TRISE(I2C_2, 100000);
-  //I2C_Read_And_Write();
-  nvicEnableIrq(75);
-  nvicDisableIrq(51);
+  I2C_Read_And_Write();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -412,8 +412,8 @@ void Usart_Gpio_Pin_Configure(){
 
 	//Configure GPIOA Alternate Function for Usart 1
 	//PA9 as Tx and PA10 as Rx
-	gpioConfigurePin(gpioA, 2, GPIO_ALT_FUNC | GPIO_PUSH_PULL | GPIO_HIGH_SPEED | AF_7 );	//Tx
-	gpioConfigurePin(gpioA, 3, GPIO_ALT_FUNC | AF_7 );										//Rx
+	gpioConfigurePin(gpioA, 9, GPIO_ALT_FUNC | GPIO_PUSH_PULL | GPIO_HIGH_SPEED | AF_7 );	//Tx
+	gpioConfigurePin(gpioA, 10, GPIO_ALT_FUNC | AF_7 );										//Rx
 }
 
 void Usart_Transmit_Sentence(UsartReg *usart){

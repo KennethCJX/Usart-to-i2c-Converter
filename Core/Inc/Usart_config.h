@@ -10,14 +10,14 @@
 
 #include <stdint.h>
 #include "IO.h"
-//#include "BaseAddress.h"
+#include "BaseAddress.h"
 
-
+/*
 //Usart Base Address
 #define USART1_BASE_ADDRESS				0x40011000
 #define USART2_BASE_ADDRESS				0x40004400
 #define USART6_BASE_ADDRESS				0x40011400
-
+*/
 
 //All Usart handler
 #define	usart1							((UsartReg*)USART1_BASE_ADDRESS)
